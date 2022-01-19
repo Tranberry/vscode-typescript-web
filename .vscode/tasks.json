@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "tsc-init",
+      "type": "shell",
+      "command": "tsc --init",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "tsc-build",
+      "type": "shell",
+      "command": "tsc"
+    },
+    {
+      "label": "tsc-watch",
+      "type": "shell",
+      "command": "tsc --watch"
+    },
+    {
+      "label": "copy",
+      "detail": "Copy CSS+HTML to /dist",
+      "type": "shell",
+      "command": "Get-ChildItem -Path 'src/*' -Include *.css,*.html -Recurse | Copy-Item -Destination 'dist/'"
+    },
+    {
+      "label": "Build",
+      "detail": "WARN: this will look for all html and css files in the src folder and copy them to the dist folder",
+      "dependsOn": [
+        "tsc-build",
+        "copy"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "dev",
+      "detail": "Run the dev server",
+      "dependsOn": [
+        "tsc-watch",
+        "copy"
+      ],
+      "problemMatcher": [],
+    }
+  ]
+}
